@@ -1,0 +1,82 @@
+version: "3.7"
+services:
+  backend:
+    build:
+      args:
+        user: xm
+        uid: 1000
+      context: ./
+      dockerfile: ./docker/Dockerfile
+    image: xmbackend
+    env_file:
+      - ./docker/backend.env
+    container_name: backend
+    restart: unless-stopped
+    working_dir: /var/www/
+    volumes:
+      - ./backend:/var/www
+    networks:
+      - xm
+  queue:
+    image: xmbackend
+    env_file:
+      - ./docker/backend.env
+    container_name: queue
+    restart: always
+    depends_on:
+      - backend
+    working_dir: /var/www/
+    volumes:
+      - ./backend:/var/www
+    command: php artisan queue:listen -vv --no-interaction --tries=3 --sleep=5 --delay=10
+    networks:
+      - xm
+  scheduler:
+    image: xmbackend
+    env_file:
+      - ./docker/backend.env
+    container_name: scheduler
+    restart: always
+    depends_on:
+      - backend
+    working_dir: /var/www/
+    volumes:
+      - ./backend:/var/www
+    command: php artisan schedule:work -vv --no-interaction
+    networks:
+      - xm
+  db:
+    image: mysql:8.0
+    container_name: db
+    restart: unless-stopped
+    ports:
+      - 3307:3306
+    environment:
+      MYSQL_DATABASE: xm
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_PASSWORD: password
+      MYSQL_USER: xm_user
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    volumes:
+      - ./_data/database/:/var/lib/mysql/
+    networks:
+      - xm
+  nginx:
+    image: nginx:alpine
+    container_name: nginx
+    restart: unless-stopped
+    ports:
+      - 8890:80
+    volumes:
+      - ./backend:/var/www
+      - ./docker/nginx:/etc/nginx/conf.d/
+    networks:
+      - xm
+    depends_on:
+      - backend
+volumes:
+  exclude:
+networks:
+  xm:
+    driver: bridge
