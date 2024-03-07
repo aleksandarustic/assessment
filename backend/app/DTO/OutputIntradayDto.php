@@ -4,14 +4,25 @@ namespace App\DTO;
 
 use Illuminate\Support\Collection;
 
+/**
+ *
+ */
 class OutputIntradayDto implements AlphaVantageDtoInterface
 {
+    /**
+     * @param string $symbol
+     * @param Collection $prices
+     */
     public function __construct(
         public string $symbol,
         public Collection $prices
     ) {
     }
 
+    /**
+     * @param array $data
+     * @return self
+     */
     public static function fromArray(array $data = []) : self
     {
         return new self(
@@ -20,6 +31,10 @@ class OutputIntradayDto implements AlphaVantageDtoInterface
         );
     }
 
+    /**
+     * @param int $tickerId
+     * @return array
+     */
     public function toArray(int $tickerId) : array
     {
         return [

@@ -2,39 +2,26 @@
 
 namespace App\Actions\Stock;
 
-use App\DTO\QuoteStockRequestDto;
-use App\DTO\QuoteStockResponseDto;
+use App\Jobs\ImportTickers;
 use App\Models\Ticker;
-use App\Services\CacheService;
+use App\Models\TickerStockPrice;
 use App\Services\StockPriceService;
-use App\Services\ExternalStockServiceInterface;
-use Illuminate\Support\Facades\Cache;
 
+/**
+ *
+ */
 class SyncStockPricesAction
 {
-
-    public function __construct(protected StockPriceService $stockPriceService)
-    {
-    }
-
+    /**
+     * @return void
+     */
     public function handle()
     {
-        $tickers = collect([Ticker::first()]);
+        $tickers = Ticker::all();
+        $chunkedTickers = $tickers->chunk(10);
 
-        $results = [];
-
-        foreach ($tickers as $ticker){
-            $tickerPrice = $this->updatePrice($ticker);
-            $results[] = $tickerPrice;
+        foreach ($chunkedTickers as $tickers) {
+            ImportTickers::dispatch($tickers);
         }
-
-        $this->stockPriceService->addPricesToCache($results);
-    }
-
-    protected function updatePrice(Ticker $ticker)
-    {
-        $tickerPrice = $this->stockPriceService->getLatestStockPricesFromServer($ticker);
-
-        return $this->stockPriceService->createOrUpdateStockPrice($ticker, $tickerPrice);
     }
 }

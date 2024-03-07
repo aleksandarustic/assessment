@@ -6,12 +6,21 @@ use App\Actions\Stock\GetInitialPricesAction;
 use App\Models\Ticker;
 use App\Models\TickerStockPrice;
 
+/**
+ *
+ */
 class AppInstallAction
 {
+    /**
+     * @param GetInitialPricesAction $getInitialPrices
+     */
     public function __construct(protected GetInitialPricesAction $getInitialPrices)
     {
     }
 
+    /**
+     * @return void
+     */
     public function handle()
     {
         $tickers = Ticker::all()->keyBy('symbol');

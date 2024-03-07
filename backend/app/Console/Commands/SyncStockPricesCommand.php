@@ -19,7 +19,7 @@ class SyncStockPricesCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Fetch exchange rates from external API and import data into DB';
+    protected $description = 'Fetch stock prices from external API and import data into DB';
 
     /**
      * Execute the console command.
@@ -27,7 +27,7 @@ class SyncStockPricesCommand extends Command
      */
     public function handle(SyncStockPricesAction $syncStockPrices)
     {
-        $this->info('Begining of sync-prices');
+        $this->info('Beginning of sync-prices');
 
         $syncStockPrices->handle();
 

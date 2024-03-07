@@ -3,9 +3,6 @@
 namespace App\Actions\Stock;
 
 
-use App\DTO\IntradayRequestDto;
-use App\DTO\OutputIntradayDto;
-use App\Services\ExternalStockServiceInterface;
 use App\Services\StockPriceService;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\AuthenticationException;
@@ -19,16 +16,16 @@ use Illuminate\Validation\ValidationException;
 class GetInitialPricesAction
 {
 
+    /**
+     * @param StockPriceService $service
+     */
     public function __construct(protected StockPriceService $service)
     {
     }
 
     /**
-     * @param Collection
-     * @throws AuthorizationException
-     * @throws RequestException
-     * @throws AuthenticationException
-     * @throws ValidationException
+     * @param Collection $tickers
+     * @return array
      */
     public function handle(Collection $tickers) : array
     {

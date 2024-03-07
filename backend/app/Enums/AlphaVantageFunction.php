@@ -2,6 +2,9 @@
 
 namespace App\Enums;
 
+/**
+ *
+ */
 enum AlphaVantageFunction : string
 {
     case INTRADAY = "TIME_SERIES_INTRADAY";

@@ -27,7 +27,7 @@ class AppInstallCommand extends Command
      */
     public function handle(AppInstallAction $appInstallAction)
     {
-        $this->info('Begining of app install');
+        $this->info('Beginning of app install');
 
         $appInstallAction->handle();
 

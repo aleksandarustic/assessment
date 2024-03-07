@@ -10,7 +10,9 @@ use App\Actions\Stock\SyncStockPricesAction;
 use App\Services\AlphaVantageServiceExternal;
 use App\Services\ExternalStockServiceInterface;
 use App\Services\StockPriceService;
+use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -34,6 +36,7 @@ class AppServiceProvider extends ServiceProvider
                 apiKey: strval(config('services.alpha_vantage.api_key')),
             ),
         );
+
     }
 
     /**
@@ -41,6 +44,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        $this->app->singleton(StockPriceService::class, StockPriceService::class);
+        RateLimiter::for('import-prices', function (object $job) {
+            return Limit::perMinute(2);
+        });
     }
 }

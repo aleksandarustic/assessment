@@ -4,8 +4,21 @@ namespace App\DTO;
 
 use App\Models\Ticker;
 
+/**
+ *
+ */
 class QuoteStockResponseDto implements AlphaVantageDtoInterface
 {
+    /**
+     * @param string $symbol
+     * @param string $open
+     * @param string $high
+     * @param string $low
+     * @param string $price
+     * @param string $close
+     * @param string $volume
+     * @param string $date
+     */
     public function __construct(
         public string $symbol,
         public string $open,
@@ -18,6 +31,10 @@ class QuoteStockResponseDto implements AlphaVantageDtoInterface
     ) {
     }
 
+    /**
+     * @param array $data
+     * @return self
+     */
     public static function fromArray(array $data) : self
     {
         return new self(
@@ -26,12 +43,15 @@ class QuoteStockResponseDto implements AlphaVantageDtoInterface
             high: $data['Global Quote'] ['03. high'],
             low: $data['Global Quote'] ['04. low'],
             price: $data['Global Quote'] ["05. price"],
-            volume: $data['Global Quote'] ['06. volume'],
             close: $data['Global Quote'] ['08. previous close'],
+            volume: $data['Global Quote'] ['06. volume'],
             date: $data['Global Quote'][ '07. latest trading day']
         );
     }
 
+    /**
+     * @return array
+     */
     public function toArray() : array
     {
         return [

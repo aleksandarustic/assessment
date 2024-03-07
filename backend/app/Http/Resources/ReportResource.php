@@ -4,13 +4,12 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Http\Resources\MissingValue;
 
 /**
- * Class TickerStockPriceResource
+ * Class ReportResource
  * @package App\Http\Resources
  */
-class TickerStockPriceResource extends JsonResource
+class ReportResource extends JsonResource
 {
     /**
      * @param Request $request
@@ -19,7 +18,9 @@ class TickerStockPriceResource extends JsonResource
     public function toArray($request)
     {
         return array_merge(parent::toArray($request), [
-            'ticker' => TickerResource::make($this->whenLoaded('ticker'))
+            'ticker' => TickerResource::make($this->whenLoaded('ticker')),
+            'previous_price' => $this->previous_price ?? 0,
+            'percentage_change' => $this->percentage_change ?? 0,
         ]);
     }
 }

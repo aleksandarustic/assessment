@@ -22,7 +22,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class AlphaVantageServiceExternal implements ExternalStockServiceInterface
 {
     /**
-     * CurrencyLayerService constructor.
+     * AlphaVantageServiceExternal constructor.
      * @param string $baseUrl
      * @param string $apiKey
      */
@@ -131,9 +131,7 @@ class AlphaVantageServiceExternal implements ExternalStockServiceInterface
 
         $response = $client->get('/', $input->toArray());
 
-        if ($response->failed()) {
-            $this->checkResponse($response);
-        }
+        $this->checkResponse($response);
 
         return $response->json();
     }
