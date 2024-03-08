@@ -37,22 +37,7 @@ class StockPriceService
     {
         $input = QuoteStockRequestDto::fromModel($ticker);
 
-        //$latestPrice = $this->service->call($input);
-
-        $latestPrice = [
-            "Global Quote" => [
-                "01. symbol" => "IBM",
-                "02. open" => "193.5000",
-                "03. high" => "5555.1300",
-                "04. low" => "192.9600",
-                "05. price" => "534535353",
-                "06. volume" => "6945818",
-                "07. latest trading day" => "2024-03-06",
-                "08. previous close" => "191.9500",
-                "09. change" => "4.2100",
-                "10. change percent" => "2.1933%"
-            ]
-        ];
+        $latestPrice = $this->service->call($input);
 
         return QuoteStockResponseDto::fromArray($latestPrice);
     }
