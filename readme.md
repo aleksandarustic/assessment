@@ -32,6 +32,7 @@ Initial Tickers will be seeded in applications after installation.
 Try not to reach API rate limit of 25 requests per day.
 
 Every minute sync-prices command will be run by scheduler after which latest prices will be saved in cache and DB
+Because of Api rate limit it will be only possible to run 2 jobs before limit is exceeded
 
 Get tickers
 
