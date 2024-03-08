@@ -20,7 +20,7 @@ class ReportResource extends JsonResource
         return array_merge(parent::toArray($request), [
             'ticker' => TickerResource::make($this->whenLoaded('ticker')),
             'previous_price' => $this->previous_price ?? 0,
-            'percentage_change' => $this->previous_price ? round((($this->price - $this->previous_price)) * 100, 5) .'%'  : 'inf',
+            'percentage_change' => ($this->percentage_change ?? 0) . '%',
         ]);
     }
 }
