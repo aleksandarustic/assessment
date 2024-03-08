@@ -1,4 +1,4 @@
-# Menu Assigment
+# Stock Price Aggregator
 
 ## Installation Instructions
 
