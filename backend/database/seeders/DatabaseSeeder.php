@@ -14,11 +14,6 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
 
-//        User::factory()->create([
-//            'name' => 'Test User',
-//            'email' => 'test@example.com',
-//        ]);
-
         Ticker::insert([
             [
                 "symbol" => "BA",
@@ -49,43 +44,43 @@ class DatabaseSeeder extends Seeder
                 "currency" => "USD"
             ],
             [
-                "symbol" => "63TA.FRK",
-                "name" => "Tencent Music Entertainment Group",
+                "symbol" => "SHOP",
+                "name" => "Shop Group",
                 "type" => "Equity",
                 "region" => "United States",
                 "currency" => "USD"
             ],
             [
-                "symbol" => "IMB.LON",
+                "symbol" => "IBM",
                 "name" => "Imperial Brands PLC",
                 "type" => "Equity",
-                "region" => "United Kingdom",
-                "currency" => "GBX"
+                "region" => "United States",
+                "currency" => "USD"
             ],
             [
-                "symbol" => "IMBAX",
+                "symbol" => "AAPL",
                 "name" => "VOYA LIMITED MATURITY BOND PORTFOLIO CLASS ADV",
                 "type" => "Mutual Fund",
                 "region" => "United States",
                 "currency" => "USD"
             ],
             [
-                "symbol" => "IMBB11.SAO",
-                "name" => "Etf Bradesco Ima-B Fundo De Indice",
+                "symbol" => "INTC",
+                "name" => "INTC group",
                 "type" => "ETF",
-                "region" => "Brazil/Sao Paolo",
-                "currency" => "BRL"
-            ],
-            [
-                "symbol" => "TSCO.LON",
-                "name" => "Tesco PLC",
-                "type" => "Equity",
-                "region" => "United Kingdom",
-                "currency" => "GBX"
+                "region" => "United States",
+                "currency" => "USD"
             ],
             [
                 "symbol" => "TSCO",
-                "name" => "Tractor Supply Company",
+                "name" => "Tesco PLC",
+                "type" => "Equity",
+                "region" => "United States",
+                "currency" => "USD"
+            ],
+            [
+                "symbol" => "HOG",
+                "name" => "HOG Company",
                 "type" => "Equity",
                 "region" => "United States",
                 "currency" => "USD"

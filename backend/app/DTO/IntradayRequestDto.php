@@ -32,9 +32,9 @@ class IntradayRequestDto implements AlphaVantageDtoInterface
     public static function fromModel(Ticker $ticker, array $data = []) : self
     {
         return new self(
-            symbol: data_get($ticker, 'symbol'),
+            symbol: $ticker->symbol,
             function: data_get($data, 'function', AlphaVantageFunction::INTRADAY),
-            interval: data_get($data, 'interval', '1min'),
+            interval: data_get($data, 'interval', '5min'),
             outputsize: data_get($data, 'outputsize', 'compact'),
         );
     }
