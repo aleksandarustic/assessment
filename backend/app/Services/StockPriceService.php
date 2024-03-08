@@ -134,10 +134,7 @@ class StockPriceService
      */
     public function getReport() : Collection
     {
-        $sub = TickerStockPrice::select(DB::raw('*, lag(price, 1,0) over (PARTITION BY ticker_id ORDER BY date ASC) as previous_price'))->orderBy('date', 'DESC');
-
-        return TickerStockPrice::query()->from( DB::raw("({$sub->toSql()}) as T") )
-            ->selectRaw('*, ROUND(((price-previous_price)/previous_price)*100) as percentage_change')->get();
+        return TickerStockPrice::select(DB::raw('*, lag(price, 1,0) over (PARTITION BY ticker_id ORDER BY date ASC) as previous_price'))->orderBy('date', 'DESC')->get();
     }
 
 }
