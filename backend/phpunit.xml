@@ -25,5 +25,8 @@
         <env name="QUEUE_CONNECTION" value="sync"/>
         <env name="SESSION_DRIVER" value="array"/>
         <env name="TELESCOPE_ENABLED" value="false"/>
+        <env name="ALPHA_VANTAGE_KEY" value="IOF8AR5TS3IGF1ES"/>
+        <env name="ALPHA_VANTAGE_BASE_URL" value="https://www.alphavantage.co/query"/>
+
     </php>
 </phpunit>

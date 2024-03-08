@@ -96,7 +96,7 @@ class StockPriceService
     /**
      * @return mixed
      */
-    protected function getLatestFromDb()
+    public function getLatestFromDb()
     {
         return TickerStockPrice::orderBy('date', 'DESC')->groupBy('ticker_id')->get();
     }
