@@ -14,6 +14,13 @@ docker-compose exec backend composer install
 docker-compose exec backend php artisan migrate:fresh --seed
 
 docker-compose exec backend php artisan app:install
+
+these two run in separate terminal
+
+docker-compose exec queue php artisan queue:listen
+
+docker-compose exec scheduler php artisan schedule:work
+
 ```
 Backend url: ``` http://localhost:8890  ```
 

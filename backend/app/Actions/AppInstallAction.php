@@ -30,7 +30,7 @@ class AppInstallAction
         $items = [];
 
         foreach ($response as $item) {
-            foreach ($item->toArray()['prices'] as $price) {
+            foreach ($item->toArray($tickers[$item->symbol]->id)['prices'] as $price) {
                 $items[] = $price;
             }
         }

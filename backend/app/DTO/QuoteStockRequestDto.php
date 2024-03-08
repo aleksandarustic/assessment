@@ -25,10 +25,10 @@ class QuoteStockRequestDto implements AlphaVantageDtoInterface
      * @param array $data
      * @return self
      */
-    public static function fromModel(Ticker $ticker, array $data = []) : self
+    public static function fromModel(Ticker $ticker, array $data = []): self
     {
         return new self(
-            symbol: data_get($ticker, 'symbol'),
+            symbol: $ticker->symbol,
             function: data_get($data, 'function', AlphaVantageFunction::QUOTE)
         );
     }
@@ -36,7 +36,7 @@ class QuoteStockRequestDto implements AlphaVantageDtoInterface
     /**
      * @return array
      */
-    public function toArray() : array
+    public function toArray(): array
     {
         return ['symbol' => $this->symbol, 'function' => $this->function->value];
     }

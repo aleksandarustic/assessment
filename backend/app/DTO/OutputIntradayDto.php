@@ -27,7 +27,7 @@ class OutputIntradayDto implements AlphaVantageDtoInterface
     {
         return new self(
             symbol: $data['Meta Data']['2. Symbol'],
-            prices: collect(data_get($data, 'Time Series (1min)'))->map(fn($item, $key) => IntradayItemDto::fromArray($item + ['date' => $key])),
+            prices: collect(data_get($data, 'Time Series (5min)'))->map(fn($item, $key) => IntradayItemDto::fromArray($item + ['date' => $key])),
         );
     }
 

@@ -28,7 +28,7 @@ services:
     working_dir: /var/www/
     volumes:
       - ./backend:/var/www
-    command: php artisan queue:listen -vv --no-interaction --tries=3 --sleep=5 --delay=10
+    #command: php artisan queue:listen -vv --no-interaction --delay=10
     networks:
       - xm
   scheduler:
@@ -42,7 +42,7 @@ services:
     working_dir: /var/www/
     volumes:
       - ./backend:/var/www
-    command: php artisan schedule:work -vv --no-interaction
+    #command: php artisan schedule:work -vv --no-interaction
     networks:
       - xm
   db:
