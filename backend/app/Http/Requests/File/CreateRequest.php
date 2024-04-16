@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\TickerStockPrice;
+namespace App\Http\Requests\File;
 
 use App\Http\Requests\Eloquent\IndexEloquentRequest;
 
@@ -8,7 +8,7 @@ use App\Http\Requests\Eloquent\IndexEloquentRequest;
  * Class IndexRequest
  * @package App\Http\Requests\Order
  */
-class IndexRequest extends IndexEloquentRequest
+class CreateRequest extends IndexEloquentRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -28,13 +28,9 @@ class IndexRequest extends IndexEloquentRequest
     public function rules()
     {
         return [
-            'ticker_id' => 'numeric',
-            'open' => 'string',
-            'high' => 'string',
-            'low' => 'string',
-            'volume' => 'string',
-            'close' => 'string',
-            'date' => 'string',
+            'parent_id' => 'present|integer|exists:files,id|nullable',
+            'name' => 'required|string',
+            'type' => 'required|string|in:folder,file',
             '__relations__' => 'array'
         ];
     }

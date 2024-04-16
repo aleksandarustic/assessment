@@ -1,14 +1,15 @@
 <?php
 
-namespace App\Http\Requests\Ticker;
+namespace App\Http\Requests\File;
 
 use App\Http\Requests\Eloquent\IndexEloquentRequest;
+use Illuminate\Validation\Rule;
 
 /**
- * Class IndexRequest
+ * Class FilterFiles
  * @package App\Http\Requests\Order
  */
-class IndexRequest extends IndexEloquentRequest
+class FilterFiles extends IndexEloquentRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -28,12 +29,12 @@ class IndexRequest extends IndexEloquentRequest
     public function rules()
     {
         return [
-            'symbol' => 'string',
-            'name' => 'string',
-            'type' => 'string',
-            'region' => 'string',
-            'currency' => 'string',
-            '__relations__' => 'array'
+            'parent_id' => [
+                'nullable',
+                'integer',
+                Rule::exists('files', 'id')
+                    ->where('type', 'folder')
+            ]
         ];
     }
 }

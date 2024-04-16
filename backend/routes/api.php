@@ -1,8 +1,7 @@
 <?php
 
-use App\Http\Controllers\TickerController;
-use App\Http\Controllers\TickerStockPriceController;
-use App\Http\Controllers\ReportingController;
+use App\Http\Controllers\FileController;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,14 +15,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/tickers', [TickerController::class, 'index']);
-Route::get('/tickers/{ticker}', [TickerController::class, 'show']);
-
-Route::get('/tickers-stock-prices', [TickerStockPriceController::class, 'index']);
-Route::get('/tickers-stock-prices/{ticker-stock-price}', [TickerStockPriceController::class, 'show']);
-Route::get('/tickers-stock-prices/latest', [TickerStockPriceController::class, 'latest']);
-
-Route::get('/report', [ReportingController::class,'report']);
+Route::get('/files', [FileController::class, 'index']);
+Route::get('/files/{file}', [FileController::class, 'show']);
+Route::post('/files', [FileController::class, 'store'])->name('create-file');
 
 
 

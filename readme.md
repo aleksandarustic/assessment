@@ -1,4 +1,4 @@
-# Stock Price Aggregator
+# Menu Assigment
 
 ## Installation Instructions
 
@@ -13,60 +13,5 @@ docker-compose exec backend composer install
 
 docker-compose exec backend php artisan migrate:fresh --seed
 
-docker-compose exec backend php artisan app:install
-
-these two run in separate terminal
-
-docker-compose exec queue php artisan queue:listen
-
-docker-compose exec scheduler php artisan schedule:work
-
 ```
-Backend url: ``` http://localhost:8890  ```
-
-#### Postman collection is located in root of repository.
-
-## About Application
-
-Initial Tickers will be seeded in applications after installation.
-Try not to reach API rate limit of 25 requests per day.
-
-Every minute sync-prices command will be run by scheduler after which latest prices will be saved in cache and DB
-Because of Api rate limit it will be only possible to run 1 jobs before limit is exceeded
-
-Get tickers
-
-```sh
-curl --location 'http://localhost:8890/api/tickers'
-```
-
-Get single ticker
-```sh
-curl --location 'http://localhost:8890/api/tickers/1'
-```
-Get ticker prices
-
-```sh
-curl --location 'http://localhost:8890/api/tickers-stock-prices?__relations__[]=ticker'
-```
-
-Get real-time tickers prices
-
-```sh
-curl --location 'http://localhost:8890/api/tickers-stock-prices/latest'
-```
-
-Get report with percentage changes
-
-```sh
-curl --location 'http://localhost:8890/api/report'
-```
-
-### DB access
-
-**host**: localhost
-**username**: xm_user
-**password**: password
-**port**: 3307
-**database**: xm
-
+After that you can open http://localhost:8890 in browser

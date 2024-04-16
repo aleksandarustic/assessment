@@ -2,17 +2,13 @@
 
 namespace App\Providers;
 
+use App\Actions\Eloquent\CreateAction;
+use App\Actions\Eloquent\CreateActionInterface;
 use App\Actions\Eloquent\GetAction;
 use App\Actions\Eloquent\GetActionInterface;
 use App\Actions\Eloquent\ShowAction;
 use App\Actions\Eloquent\ShowActionInterface;
-use App\Actions\Stock\SyncStockPricesAction;
-use App\Services\AlphaVantageServiceExternal;
-use App\Services\ExternalStockServiceInterface;
-use App\Services\StockPriceService;
-use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -24,18 +20,9 @@ class AppServiceProvider extends ServiceProvider
     {
         JsonResource::withoutWrapping();
 
-        $this->app->singleton(StockPriceService::class, StockPriceService::class);
         $this->app->singleton(GetActionInterface::class, GetAction::class);
         $this->app->singleton(ShowActionInterface::class, ShowAction::class);
-        $this->app->singleton(SyncStockPricesAction::class, SyncStockPricesAction::class);
-
-        $this->app->singleton(
-            ExternalStockServiceInterface::class,
-            fn() => new AlphaVantageServiceExternal(
-                baseUrl: strval(config('services.alpha_vantage.base_url')),
-                apiKey: strval(config('services.alpha_vantage.api_key')),
-            ),
-        );
+        $this->app->singleton(CreateActionInterface::class, CreateAction::class);
 
     }
 
@@ -44,8 +31,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        RateLimiter::for('import-prices', function (object $job) {
-            return Limit::perMinute(2);
-        });
+
     }
 }

@@ -2,8 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Ticker;
-use App\Models\User;
+use App\Models\File;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -13,77 +12,47 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        $rootFolder = File::create([
+            "name" => "MainFolder",
+            "type" => "folder",
+        ]);
 
-        Ticker::insert([
+        $productFolder = File::create([
+            "name" => "product_data",
+            "type" => "folder",
+            "parent_id" => $rootFolder->id,
+        ]);
+
+        File::insert([
             [
-                "symbol" => "BA",
-                "name" => "Boeing Company",
-                "type" => "Equity",
-                "region" => "United States",
-                "currency" => "USD"
+                "name" => "agreement.pdf",
+                "type" => "file",
+                "parent_id" => null
             ],
             [
-                "symbol" => "BAB",
-                "name" => "INVESCO TAXABLE MUNICIPAL BOND ETF ",
-                "type" => "ETF",
-                "region" => "United States",
-                "currency" => "USD"
+                "name" => "cv.pdf",
+                "type" => "file",
+                "parent_id" => $rootFolder->id
             ],
             [
-                "symbol" => "SAIC",
-                "name" => "Science Applications International Corp",
-                "type" => "Equity",
-                "region" => "United States",
-                "currency" => "USD"
+                "name" => "profileImage.png",
+                "type" => "file",
+                "parent_id" => $rootFolder->id
             ],
             [
-                "symbol" => "TME",
-                "name" => "Tencent Music Entertainment Group",
-                "type" => "Equity",
-                "region" => "United States",
-                "currency" => "USD"
+                "name" => "product1.pdf",
+                "type" => "file",
+                "parent_id" => $productFolder->id
             ],
             [
-                "symbol" => "SHOP",
-                "name" => "Shop Group",
-                "type" => "Equity",
-                "region" => "United States",
-                "currency" => "USD"
+                "name" => "product2.pdf",
+                "type" => "file",
+                "parent_id" => $productFolder->id
             ],
             [
-                "symbol" => "IBM",
-                "name" => "Imperial Brands PLC",
-                "type" => "Equity",
-                "region" => "United States",
-                "currency" => "USD"
-            ],
-            [
-                "symbol" => "AAPL",
-                "name" => "VOYA LIMITED MATURITY BOND PORTFOLIO CLASS ADV",
-                "type" => "Mutual Fund",
-                "region" => "United States",
-                "currency" => "USD"
-            ],
-            [
-                "symbol" => "INTC",
-                "name" => "INTC group",
-                "type" => "ETF",
-                "region" => "United States",
-                "currency" => "USD"
-            ],
-            [
-                "symbol" => "TSCO",
-                "name" => "Tesco PLC",
-                "type" => "Equity",
-                "region" => "United States",
-                "currency" => "USD"
-            ],
-            [
-                "symbol" => "HOG",
-                "name" => "HOG Company",
-                "type" => "Equity",
-                "region" => "United States",
-                "currency" => "USD"
+                "name" => "product3.pdf",
+                "type" => "file",
+                "parent_id" => $productFolder->id
             ],
         ]);
 
